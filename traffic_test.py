@@ -21,7 +21,7 @@ if the value of a cell is 1 ( if c_n(j) == 1 )
 else, if the value of a cell is zero ( if c_n(j) == 0 )
     if the value behind that cell is 1 ( if c_n(j-1) == 1)
         then the value of the cell in the next iteration is 1
-        ( c_n+1_(j) == 1 )
+        ( c_n+1(j) == 1 )
     else, the value of the cell remains 0 ( c_n+1(j) == 0 )
 
 """
