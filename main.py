@@ -52,7 +52,6 @@ class Traffic:
 
         """
         
-        """
         for index, space in self.road_grid:
 
             # skips the halo region
@@ -62,11 +61,15 @@ class Traffic:
             if space == 1:
                 #if the space in front is occupied then remain stationary
                 if self.road_grid[index + 1] == 1:
+                    space = 1
+                else:
+                    space = 0
+
+        """
 
 
-
-        self.grid.append([0, 0, 0, 1, 0, 1, 1, 0])
-        print(self.grid)
+        self.road_grid.append([0, 0, 0, 1, 0, 1, 1, 0])
+        print(self.road_grid)
 
 def main():
 
