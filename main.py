@@ -11,6 +11,7 @@ class Traffic:
         #initialise 1D grid of "cars" using the given parameters 
         #append new iterations to grid, starting with initial 1D grid
         # grid has empty zeros at each end- halo region- in this example 
+        
         # self.road_length is 6
         self.road_grid = [[0, 0, 0, 1, 0, 1, 1, 0]]
         # copy of list with halo looks like [1, 0, 0, 1, 0, 1, 1, 0]
