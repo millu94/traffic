@@ -32,3 +32,14 @@ user input:
 -number of iterations (number of time steps)
 -car density, fraction of cells that have cars on them, placed randomly
 """
+
+"""
+first find out if there are cars at either end of the road
+and copy them to a new list
+list that user sees [0, 0, 1, 0, 1, 1]
+init list     =  [0, 0, 0, 1, 0, 1, 1, 0]
+function inside init determines the new halo list for each iteration
+halo list     =  [1, 0, 0, 1, 0, 1, 1, 0]
+halo list is ready to be updated with move_car()
+new list      =  [0, 1, 0, 0, 1, 1, 0, 0]
+"""     

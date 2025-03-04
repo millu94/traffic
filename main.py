@@ -1,4 +1,3 @@
-import copy
 import numpy as np
 import matplotlib.pyplot as plt
 import math
@@ -10,21 +9,22 @@ class Traffic:
         self.total_time_step = number_of_iterations
         self.density = car_density
         self.road_grid = [np.zeros(number_of_cells, dtype=int).tolist()]
+        self.actual_cars = 0
+        self.cars_moved = 0
+        self.average_speed = 0
 
-        # takes empty grid of zeros and poulates with cars in relation to 
+        # takes empty grid of zeros and populates with cars in relation to 
         # input density
-
-        actual_cars = 0
-
         for index in range(len(self.road_grid[0])):
             random_number = np.random.rand()
             if self.density >= random_number:
-                actual_cars += 1
+                self.actual_cars += 1
                 self.road_grid[0][index] = 1
         print(self.road_grid)
 
-        self.actual_density = round(actual_cars / number_of_cells, 2)
-        print(f"Actual Car Density: {self.actual_density}")
+        self.actual_density = round(self.actual_cars / number_of_cells, 2)
+        print(f"Experimental Car Density: {self.actual_density}")
+        print(f"Numbers of Cars: {self.actual_cars}")
 
     def __str__(self):
         s = ""
@@ -63,7 +63,7 @@ class Traffic:
         #print(f"{copy_last_row} RH inner update LH cell")
         
         #print(f"{self.road_grid} self.road_grid")
-        print(f"{copy_last_row} copy_last_row updated halo")
+        #print(f"{copy_last_row} copy_last_row updated halo")
 
         updated_road = [0] * len(copy_last_row)
         #print(f"{updated_road} updated road")
@@ -93,27 +93,30 @@ class Traffic:
                     updated_road[index] = 1
                 else:
                     updated_road == 0
-            #print(f"{updated_road} updated road {index}")
 
-        print(cars_moved)
+        self.cars_moved = cars_moved
+        self.average_speed = self.cars_moved / self.actual_cars \
+        #    if self.actual_cars != 0 else 0
 
-        #print(f"{updated_road} updated road")
-        
         # remove values from either end of updated list
         updated_road.pop(0)
         updated_road.pop(-1)
         
-
-        # self.road_grid.append(copy_last_row)
         self.road_grid.append(updated_road)
-        # print(self.road_grid)
+
+        return self.cars_moved
 
     def move_cars(self):
         """
         calls the move_cars_one_step() function by the amount specified
         """
-        for _ in range(self.total_time_step):
+        for index in range(self.total_time_step):
             self.move_cars_one_step()
+            print(
+                f"Timestep: {index},  "
+                f"Cars Moved: {self.cars_moved}, "
+                f"Average Speed: {self.average_speed}"
+            )
         
 
 def main():
@@ -154,7 +157,7 @@ def main():
 
     number_of_cells = 20
     number_of_iterations = 20
-    car_density = 0.4
+    car_density = 0.5
 
     traffic_model = Traffic(number_of_cells, number_of_iterations, car_density)
     print(traffic_model)
