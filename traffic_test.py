@@ -42,4 +42,8 @@ function inside init determines the new halo list for each iteration
 halo list     =  [1, 0, 0, 1, 0, 1, 1, 0]
 halo list is ready to be updated with move_car()
 new list      =  [0, 1, 0, 0, 1, 1, 0, 0]
+
+
+
+# print(f"{copy_last_row} copy_last_row loop {index}") (inside for loop-75)
 """     
