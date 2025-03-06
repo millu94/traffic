@@ -107,19 +107,24 @@ class Traffic:
                     f"Average Speed: {round(self.average_speed, 2)}"
                 )
         self.steady_state_average = self.average_speed
-        print(f"Steady State Average: {round(self.steady_state_average, 2)}")
+        print(
+            f"Steady State Average Speed: "
+            f"{round(self.steady_state_average, 2)}"
+        )
         
 
 def main():
 
-    print("Traffic Simulation utilising cellular automata, Insert values for \
-        : ")
+    print("Traffic Simulation utilising cellular automata, Insert values for"
+        ": ")
 
     while True:
         try:
             number_of_cells = int(input("Road length (Number of Cells): "))
             if number_of_cells <= 0:
-                print("Error: Road length must be a positive integer. Please try again.")
+                print("Error: Road length must be a positive integer. Please "
+                      "try again."
+                )
                 continue
             break
         except ValueError:
@@ -127,9 +132,12 @@ def main():
 
     while True:
         try:
-            number_of_iterations = int(input("Number of Iterations (Number of Timesteps): "))
+            number_of_iterations = int(
+                input("Number of Iterations (Number of Timesteps): ")
+                )
             if number_of_iterations <= 0:
-                print("Error: Number of iterations must be a positive integer.Please try again.")
+                print("Error: Number of iterations must be a positive integer"
+                      ". Please try again.")
                 continue
             break
         except ValueError:
@@ -137,30 +145,39 @@ def main():
 
     # ask user either rum simulation for particular density or all densities
 
-    print("Would you like to run simulation for a particular density or a range of densities?")
+    print("Would you like to run simulation for a particular density or a "
+          " range of densities?")
 
     while True:
         try:
-            user_choice = int(input("Enter 1 for particular density, 2 for range: "))
+            user_choice = int(
+                input("Enter 1 for particular density, 2 for range: ")
+                )
             if user_choice == 1:
                 while True:
                     try:
-                        car_density = float(input("Car Density (0 < x < 1): "))
+                        car_density = float(
+                            input("Car Density (0 < x < 1): ")
+                            )
                         if 0 < car_density < 1:
                             break
                         else:
-                            print("Error: Car density must be a number between 0 and 1. Please try again.")
+                            print("Error: Car density must be a number "
+                                  " between 0 and 1. Please try again.")
                     except ValueError:
-                        print("Error: Invalid input. Please enter a valid number.")
+                        print("Error: Invalid input. Please enter a valid " 
+                              " number.")
                 break
             elif user_choice == 2:
-                # set car density equal to 5 for default grid and calculate range
+                # set car density equal to 5 for default grid and calculate 
+                # range
                 """
                 insert function call here
 
                 create a range of densities between 0 and 1
 
-                for each density create an object using number of cells and number of iterations inputted by user
+                for each density create an object using number of cells and 
+                number of iterations inputted by user
 
                 call move_cars() on each object
                 """
@@ -173,8 +190,11 @@ def main():
                         number_of_cells, number_of_iterations, density
                     )
                     traffic_model.move_cars(0)
-                    actual_densities.append(traffic_model.actual_density)
-                    steady_vs_density.append(traffic_model.steady_state_average)
+                    if traffic_model.actual_density != 0:
+                        actual_densities.append(traffic_model.actual_density)
+                        steady_vs_density.append(
+                            traffic_model.steady_state_average
+                        )
                     
                     print(traffic_model.actual_density)
                     print(traffic_model.steady_state_average)
@@ -183,6 +203,8 @@ def main():
                 print(steady_vs_density)
 
                 plt.plot(actual_densities, steady_vs_density)
+                plt.xlabel("Densities")
+                plt.ylabel("Steady State Average Speed")
                 plt.show()
 
                 car_density = 0.5
@@ -236,12 +258,15 @@ def main():
     plt.xlabel("Car Position")
     plt.ylabel("Timestep")
 
-    textstr = f"Experimental Car Density: {traffic_model.actual_density:.2f}\n \
-        Number of Cars: {traffic_model.actual_cars} Steady State Average : {traffic_model.steady_state_average}"
-    
+    textstr = (
+        f"Experimental Car Density: {traffic_model.actual_density:.2f}\n"
+        f"Number of Cars: {traffic_model.actual_cars}\n" 
+        f"Steady State Average : {traffic_model.steady_state_average}"
+    )
     fig.text(0.02, 0.95, textstr, fontsize=10, color="black",
          verticalalignment='top', horizontalalignment='left',
-         bbox=dict(boxstyle="round,pad=0.3", edgecolor='black', facecolor='white'))
+         bbox=dict(
+             boxstyle="round,pad=0.3", edgecolor='black', facecolor='white'))
 
 
     plt.tight_layout()
